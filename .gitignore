@@ -1,7 +1,42 @@
+# Python
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Django
 db.sqlite3
+db.sqlite3-journal
 media/
 staticfiles/
-.venv/
+local_settings.py
+
+# Environment
 .env
+.env.*
+.venv/
+venv/
+env/
+ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & misc
+*.log
+*.pot
+*.pyc
