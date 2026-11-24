@@ -19,13 +19,13 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("name", models.CharField(default="Joshua Agawin", max_length=120)),
-                ("friends_count", models.PositiveIntegerField(default=373)),
-                ("city", models.CharField(default="Lucena City", max_length=120)),
+                ("name", models.CharField(default="Alex Rivera", max_length=120)),
+                ("friends_count", models.PositiveIntegerField(default=512)),
+                ("city", models.CharField(default="Metro City", max_length=120)),
                 (
                     "school",
                     models.CharField(
-                        default="DepEd Quezon National High School", max_length=180
+                        default="Westfield Academy of Arts and Sciences", max_length=180
                     ),
                 ),
                 (
