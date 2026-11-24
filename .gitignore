@@ -36,6 +36,15 @@ ENV/
 Thumbs.db
 desktop.ini
 
+# AI & Codex sessions
+codex-session-*.md
+.codex/
+.agents/
+.aws/
+.gemini/
+*.aider*
+.aider*
+
 # Logs & misc
 *.log
 *.pot
