@@ -1,0 +1,152 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#242526">
+  <title>{{ profile.name }} | Profile</title>
+  <link rel="icon" href="{% static 'profile/images/brand-mark.png' %}" type="image/png">
+  <link rel="stylesheet" href="{% static 'profile/css/profile.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="brand-mark" href="#top" aria-label="Home">
+        <img src="{% static 'profile/images/brand-mark.png' %}" alt="">
+      </a>
+      <label class="search-box" aria-label="Search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"></circle><path d="m16 16 4.2 4.2"></path></svg>
+        <input type="search" placeholder="Search Facebook">
+      </label>
+    </div>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a class="nav-item active" href="#top" aria-label="Home"><svg viewBox="0 0 24 24"><path d="m3.5 10 8.5-7 8.5 7v10.5h-6v-7h-5v7h-6z"></path></svg></a>
+      <a class="nav-item" href="#posts" aria-label="Video"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="4"></rect><path d="m10 9 5 3-5 3z"></path></svg></a>
+      <a class="nav-item" href="#about" aria-label="Marketplace"><svg viewBox="0 0 24 24"><path d="M4 10h16v10H4zM3 10l2-6h14l2 6M8 10v3m4-3v3m4-3v3"></path></svg></a>
+      <a class="nav-item" href="#friends" aria-label="Friends"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"></circle><path d="M3 20v-1.5a6 6 0 0 1 12 0V20zM16 5a3.2 3.2 0 0 1 0 6.2m2 3a5.2 5.2 0 0 1 3 4.8v1"></path></svg></a>
+      <a class="nav-item" href="#highlights" aria-label="Gaming"><svg viewBox="0 0 24 24"><path d="M6 8h12a4 4 0 0 1 4 4l-1 6a2.5 2.5 0 0 1-4.2 1.4L14 17h-4l-2.8 2.4A2.5 2.5 0 0 1 3 18l-1-6a4 4 0 0 1 4-4zM7 11v4m-2-2h4m6-1h.1m3 2h.1"></path></svg></a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="round-button apps-button" aria-label="Menu"><svg viewBox="0 0 24 24"><circle cx="5" cy="5" r="1.5"></circle><circle cx="12" cy="5" r="1.5"></circle><circle cx="19" cy="5" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="19" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle><circle cx="19" cy="19" r="1.5"></circle></svg></button>
+      <button class="round-button" aria-label="Messenger"><svg viewBox="0 0 24 24"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.8 7.3L3 20l1.3-4.2a8.5 8.5 0 1 1 16.2-4.3z"></path><path d="m7.5 14 3.5-3.7 2.3 2 3.2-2"></path></svg><span class="notification-dot">7</span></button>
+      <button class="round-button" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 12h4"></path></svg><span class="notification-dot">5</span></button>
+      <button class="account-avatar" aria-label="Account menu">
+        {% if profile.profile_picture %}<img src="{{ profile.profile_picture.url }}" alt="">
+        {% else %}<img src="{% static 'profile/images/default-profile.png' %}" alt="">{% endif %}
+        <span>⌄</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top" class="profile-page">
+    <section class="profile-hero" aria-label="Profile header">
+      <div class="cover-wrap">
+        <img class="cover-image" src="{% static 'profile/images/cover-photo.png' %}" alt="Airplane at sunset">
+        <button class="cover-edit" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l1.4-2h7.2L17 7h3v12H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg><span>Edit cover photo</span></button>
+      </div>
+
+      <div class="profile-summary">
+        <div class="identity">
+          <div class="avatar-wrap">
+            {% if profile.profile_picture %}<img id="profile-photo-preview" class="profile-avatar" src="{{ profile.profile_picture.url }}" alt="{{ profile.name }} profile photo">
+            {% else %}<img id="profile-photo-preview" class="profile-avatar" src="{% static 'profile/images/default-profile.png' %}" alt="{{ profile.name }} profile photo">{% endif %}
+            <form id="profile-photo-form" class="avatar-upload-form" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form.profile_picture }}
+              <button class="avatar-camera" type="button" id="choose-photo" aria-label="Choose a profile picture"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h3l1.5-2h8L18 7h2v12H4z"></path><circle cx="12" cy="13" r="3.5"></circle></svg></button>
+            </form>
+          </div>
+          <div class="identity-copy">
+            <h1>{{ profile.name }}</h1>
+            <a class="friends-count" href="#friends">{{ profile.friends_count }} friends</a>
+            <div class="upload-actions" id="upload-actions" hidden>
+              <span id="selected-photo-name">Choose a photo</span>
+              <button class="button button-primary button-small" type="submit" form="profile-photo-form">Save photo</button>
+              <button class="button button-muted button-small" type="button" id="cancel-photo">Cancel</button>
+            </div>
+            {% if form.profile_picture.errors %}<div class="field-errors">{{ form.profile_picture.errors }}</div>{% endif %}
+          </div>
+        </div>
+        <div class="profile-actions">
+          <a class="button button-primary" href="#posts"><svg viewBox="0 0 24 24"><path d="M12 5v14m-7-7h14"></path></svg>Add to story</a>
+          <a class="button button-muted" href="#about"><svg viewBox="0 0 24 24"><path d="m4 16.5-.8 4.3 4.3-.8L19.7 7.8l-3.5-3.5zM14.5 6l3.5 3.5"></path></svg>Edit profile</a>
+          <button class="button button-muted icon-only" type="button" aria-label="More profile actions"><svg viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"></path></svg></button>
+        </div>
+      </div>
+
+      <nav class="profile-tabs" aria-label="Profile sections">
+        <a class="selected" href="#posts">All</a>
+        <a href="#about">About</a>
+        <a href="#friends" id="friends">Friends</a>
+        <a href="#photos">Photos</a>
+        <a href="#posts">Reels</a>
+        <a href="#more">More <span>⌄</span></a>
+        <button class="button button-muted tab-more" type="button" aria-label="More tabs">•••</button>
+      </nav>
+    </section>
+
+    {% if messages %}
+      <div class="message-stack" aria-live="polite">
+        {% for message in messages %}<div class="message {{ message.tags }}">{{ message }}</div>{% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="content-grid">
+      <aside class="profile-sidebar" id="about">
+        <section class="card locked-card">
+          <span class="lock-badge"><svg viewBox="0 0 24 24"><path d="M6 10h12v10H6zM8 10V7a4 4 0 1 1 8 0v3"></path><circle cx="12" cy="15" r="1"></circle></svg></span>
+          <div><h2>You locked your profile</h2><a href="#about">Learn more</a></div>
+        </section>
+
+        <section class="card details-card">
+          <div class="card-title-row"><h2>Personal details</h2><button class="edit-icon" type="button" aria-label="Edit personal details"><svg viewBox="0 0 24 24"><path d="m4 16.5-.8 4.3 4.3-.8L19.7 7.8l-3.5-3.5zM14.5 6l3.5 3.5"></path></svg></button></div>
+          <div class="detail-line"><svg viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0z"></path><circle cx="12" cy="10" r="2.2"></circle></svg><span>Lives in <strong>{{ profile.city }}</strong><svg class="tiny-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 1 1 8 0v3"></path></svg></span></div>
+          <div class="card-title-row education-title"><h2>Education</h2><button class="edit-icon" type="button" aria-label="Edit education"><svg viewBox="0 0 24 24"><path d="m4 16.5-.8 4.3 4.3-.8L19.7 7.8l-3.5-3.5zM14.5 6l3.5 3.5"></path></svg></button></div>
+          <div class="detail-line school-line"><img class="school-mark" src="{% static 'profile/images/school-mark.png' %}" alt=""><span><strong>{{ profile.school }}</strong><svg class="tiny-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"></rect><path d="M8 10V7a4 4 0 1 1 8 0v3"></path></svg></span></div>
+        </section>
+
+        <section class="card highlights-card" id="highlights">
+          <h2>Highlights</h2>
+          <button class="add-highlights" type="button"><span>＋</span> Add highlights</button>
+        </section>
+      </aside>
+
+      <section class="feed-column" id="posts" aria-label="Profile posts">
+        <section class="card composer">
+          <div class="composer-top">
+            {% if profile.profile_picture %}<img class="small-avatar" src="{{ profile.profile_picture.url }}" alt="">
+            {% else %}<img class="small-avatar" src="{% static 'profile/images/default-profile.png' %}" alt="">{% endif %}
+            <button class="thought-button" type="button">What's on your mind?</button>
+          </div>
+          <div class="composer-options">
+            <button type="button"><span class="live-icon">▸</span> Live video</button>
+            <button type="button"><span class="photo-icon">▧</span> Photo/video</button>
+            <button type="button"><span class="life-icon">⚑</span> Life update</button>
+          </div>
+        </section>
+
+        <section class="card posts-card">
+          <div class="posts-heading"><h2>Posts</h2><div><button class="button button-muted" type="button"><svg viewBox="0 0 24 24"><path d="M4 6h16M7 12h10m-7 6h4"></path><circle cx="8" cy="6" r="2"></circle><circle cx="15" cy="12" r="2"></circle></svg>Filters</button><button class="button button-muted" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19 13.5a7 7 0 0 0 0-3l2-1.5-2-3.5-2.5 1a8 8 0 0 0-2.5-1.5L13.5 2h-4L9 5a8 8 0 0 0-2.5 1.5L4 5.5 2 9l2 1.5a7 7 0 0 0 0 3L2 15l2 3.5 2.5-1A8 8 0 0 0 9 19l.5 3h4l.5-3a8 8 0 0 0 2.5-1.5l2.5 1 2-3.5z"></path></svg>Manage posts</button></div></div>
+          <div class="view-switch"><button class="active-view" type="button"><svg viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"></path><circle cx="4" cy="6" r="1"></circle><circle cx="4" cy="12" r="1"></circle><circle cx="4" cy="18" r="1"></circle></svg>List view</button><button type="button"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><rect x="14" y="14" width="6" height="6" rx="1"></rect></svg>Grid view</button></div>
+
+          <article class="post">
+            <div class="post-author">
+              {% if profile.profile_picture %}<img class="small-avatar" src="{{ profile.profile_picture.url }}" alt="">
+              {% else %}<img class="small-avatar" src="{% static 'profile/images/default-profile.png' %}" alt="">{% endif %}
+              <div><strong>{{ profile.name }}</strong><span>August 9 · <svg viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.2"></circle><path d="M2.5 20a5.5 5.5 0 0 1 11 0m1-4.5a4.5 4.5 0 0 1 7 3.7"></path></svg></span></div>
+              <button class="post-menu" type="button" aria-label="Post options">•••</button>
+            </div>
+            <p class="post-copy">A day to remember with my school family. 💙✨</p>
+            <img class="post-photo" src="{% static 'profile/images/post-photo.png' %}" alt="School community gathering">
+            <div class="post-reactions"><span><i>👍</i><i>❤️</i> 24</span><span>6 comments</span></div>
+            <div class="post-buttons"><button type="button">♡ <span>Like</span></button><button type="button">▢ <span>Comment</span></button><button type="button">↗ <span>Share</span></button></div>
+          </article>
+        </section>
+      </section>
+    </div>
+    <footer class="page-footer"><span>Made for a Django static &amp; media files activity</span><span>About · Privacy · Community Standards</span></footer>
+  </main>
+  <script src="{% static 'profile/js/profile.js' %}" defer></script>
+</body>
+</html>
