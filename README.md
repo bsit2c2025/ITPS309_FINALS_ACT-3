@@ -38,6 +38,7 @@ Testing of the feature of uploading the profile picture
 
 <img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/b4be60c2-cf3a-46d6-a18d-2b2693fd7aef" />
 
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/de3e9fa5-47e8-4583-b56c-be314e6d07c3" />
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/8218165b-bc3a-4ecf-b0f4-aadd0e9d7bc7" />
+
 
 
