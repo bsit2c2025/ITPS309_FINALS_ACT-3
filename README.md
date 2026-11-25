@@ -24,3 +24,20 @@ Open `http://127.0.0.1:8000/`. The first page visit creates the sample profile w
 6. Set a private `DJANGO_SECRET_KEY` for the deployed app and set `DJANGO_ALLOWED_HOSTS` to your `username.pythonanywhere.com` hostname. Keep `DJANGO_DEBUG` unset or set it to `false`.
 
 PythonAnywhere's manual Django deployment flow is documented in its [Deploying an existing Django project guide](https://help.pythonanywhere.com/pages/DeployExistingDjangoProject/). This activity uses SQLite and a single sample profile record.
+
+# Screenshots
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/ca233373-f6b5-4403-bc58-dfdd469053c4" />
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/3ee0c189-4d4c-4203-a43d-d64b0a8002b3" />
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/e4dd2db8-2069-4a68-8a62-f2e6e9059fcd" />
+
+
+Testing of the feature of uploading the profile picture
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/b4be60c2-cf3a-46d6-a18d-2b2693fd7aef" />
+
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/de3e9fa5-47e8-4583-b56c-be314e6d07c3" />
+
+
